@@ -1,13 +1,29 @@
 class Solution {
     public static int counting(int matrix[][], int target) {
         int count = 0;
+        int n = matrix.length;
 
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                if (matrix[i][j] <= target) {
-                    count++;
+        for (int i = 0; i < n; i++) {
+
+            if (matrix[i][n - 1] <= target) {
+                count += n;
+                continue;
+            }
+
+            int low = 0;
+            int high = n - 1;
+
+            while (low <= high) {
+                int mid = low + (high - low) / 2;
+
+                if (matrix[i][mid] <= target) {
+                    low = mid + 1;
+                } else {
+                    high = mid - 1;
                 }
             }
+
+            count += low;
         }
 
         return count;
